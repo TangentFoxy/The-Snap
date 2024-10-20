@@ -1,16 +1,11 @@
-/**
- * Randomly shuffle an array
- * https://stackoverflow.com/a/2450976/1293256
- * @param  {Array} array The array to shuffle
- * @return {String}      The first item in the shuffled array
- */
-var shuffle = function (array) {
 
+var shuffle = function (array) {
 	var currentIndex = array.length;
 	var temporaryValue, randomIndex;
 
 	// While there remain elements to shuffle...
 	while (0 !== currentIndex) {
+
 		// Pick a remaining element...
 		randomIndex = Math.floor(Math.random() * currentIndex);
 		currentIndex -= 1;
@@ -22,30 +17,28 @@ var shuffle = function (array) {
 	}
 
 	return array;
-
 };
 
 chrome.browserAction.onClicked.addListener(function() {
   chrome.tabs.query({}, function(tabs) {
-    chrome.browserAction.getBadgeText({}, function(text) {
-      ok = confirm("Are you sure you want to snap " + text + " tabs?")
-      if (ok) {
-        shuffle(tabs)
-        let count = Math.floor(tabs.length / 2) + 1
-        tabs = tabs.slice(1, count)
-        let ids = [];
-        for (tab in tabs) {
-          ids.push(tabs[tab].id)
-        }
-        chrome.tabs.remove(ids)
+    let count = Math.floor(tabs.length / 2) + 1   // I don't remember why we need an extra +1 here, but it is necessary
+    var ok = confirm("Are you sure you want to close " + count + " tabs?")
+    if (ok) {
+      shuffle(tabs)
+      tabs = tabs.slice(1, count)
+      let tab_identifiers = [];
+      for (tab in tabs) {
+        tab_identifiers.push(tabs[tab].id)
       }
-    })
+      chrome.tabs.remove(ids)
+    }
   })
 })
 
 function updateCount() {
   chrome.tabs.query({}, function(tabs) {
-    chrome.browserAction.setBadgeText({ text: "" + Math.floor(tabs.length / 2) })
+    let count = Math.floor(tabs.length / 2)
+    chrome.browserAction.setBadgeText({ text: "" + count })
   })
 }
 
