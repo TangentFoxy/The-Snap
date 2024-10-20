@@ -5,7 +5,6 @@
   "version": "1.1",
   "icons": {
     "16": "images/gauntlet16.png",
-    "32": "images/gauntlet32.png",
     "48": "images/gauntlet48.png",
     "128": "images/gauntlet128.png"
   },
