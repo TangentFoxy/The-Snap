@@ -9,6 +9,11 @@
     "128": "images/gauntlet128.png"
   },
   "author": "rose@tangentfox.com",
+  "homepage_url": "https://blog.tangentfox.com/the-snap-browser-extension/",
+  "developer": {
+    "name": "Rose (Tangent) Liverman",
+    "url": "https://blog.tangentfox.com/the-snap-browser-extension/"
+  },
   "action": {},
   "permissions": [
     "tabs"
