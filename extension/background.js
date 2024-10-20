@@ -25,7 +25,7 @@ var shuffle = function (array) {
 	return array;
 };
 
-browser.browserAction.onClicked.addListener(function() {
+browser.action.onClicked.addListener(function() {
   browser.tabs.query({}, function(tabs) {
     let count = Math.floor(tabs.length / 2) + 1   // I don't remember why we need an extra +1 here, but it is necessary
     var ok = confirm("Are you sure you want to close " + count + " tabs?")
@@ -44,7 +44,7 @@ browser.browserAction.onClicked.addListener(function() {
 function updateCount() {
   browser.tabs.query({}, function(tabs) {
     let count = Math.floor(tabs.length / 2)
-    browser.browserAction.setBadgeText({ text: "" + count })
+    browser.action.setBadgeText({ text: "" + count })
   })
 }
 
