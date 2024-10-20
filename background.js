@@ -1,3 +1,9 @@
+// Cross-platform namespace support
+window.browser = (function () {
+  return window.browser ||
+    window.msBrowser ||
+    window.chrome;
+})();
 
 var shuffle = function (array) {
 	var currentIndex = array.length;
@@ -19,8 +25,8 @@ var shuffle = function (array) {
 	return array;
 };
 
-chrome.browserAction.onClicked.addListener(function() {
-  chrome.tabs.query({}, function(tabs) {
+browser.browserAction.onClicked.addListener(function() {
+  browser.tabs.query({}, function(tabs) {
     let count = Math.floor(tabs.length / 2) + 1   // I don't remember why we need an extra +1 here, but it is necessary
     var ok = confirm("Are you sure you want to close " + count + " tabs?")
     if (ok) {
@@ -30,29 +36,21 @@ chrome.browserAction.onClicked.addListener(function() {
       for (tab in tabs) {
         tab_identifiers.push(tabs[tab].id)
       }
-      chrome.tabs.remove(ids)
+      browser.tabs.remove(ids)
     }
   })
 })
 
 function updateCount() {
-  chrome.tabs.query({}, function(tabs) {
+  browser.tabs.query({}, function(tabs) {
     let count = Math.floor(tabs.length / 2)
-    chrome.browserAction.setBadgeText({ text: "" + count })
+    browser.browserAction.setBadgeText({ text: "" + count })
   })
 }
 
-chrome.tabs.onCreated.addListener(function() {
-  updateCount()
-})
-chrome.tabs.onRemoved.addListener(function() {
-  updateCount()
-})
-chrome.windows.onCreated.addListener(function() {
-  updateCount()
-})
-chrome.windows.onRemoved.addListener(function() {
-  updateCount()
-})
+browser.tabs.onCreated.addListener(updateCount)
+browser.tabs.onRemoved.addListener(updateCount)
+browser.windows.onCreated.addListener(updateCount)
+browser.windows.onRemoved.addListener(updateCount)
 
 updateCount()
