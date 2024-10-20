@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "The Snap",
   "description": "Too many tabs open? Halve your workload.",
-  "version": "1.1",
+  "version": "1.1.1",
   "icons": {
     "16": "images/gauntlet16.png",
     "48": "images/gauntlet48.png",
@@ -21,6 +21,14 @@
   "background": {
     "service_worker": "background.js",
     "scripts": [ "background.js" ],
-    "persistent": true
+    "persistent": false
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "Firefox:jnepihdngfgandipbhlboibhpkebbnkn"
+    },
+    "gecko_android": {
+      "id": "Firefox_Android:jnepihdngfgandipbhlboibhpkebbnkn"
+    }
   }
 }
